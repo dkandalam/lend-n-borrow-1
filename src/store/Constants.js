@@ -1,0 +1,5 @@
+export const INIT_STORE_ACTION="INIT_STORE";
+export const INIT_STORE_LOGIN="INIT_LOGIN";
+export const INIT_SESSION = "INIT_SESSION";
+export const CLEAN_SESSION = "CLEAN_SESSION";
+export const INIT_STORE_LOGOUT = "INIT_LOGOUT";

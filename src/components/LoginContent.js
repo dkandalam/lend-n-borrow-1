@@ -1,13 +1,16 @@
 import {useState,useContext} from 'react';
-import { useHistory } from 'react-router';
-import { AuthContext } from './AuthContext';
+import { useNavigate } from "react-router-dom";
+import {connect, useDispatch} from "react-redux";
+import {initLogin,initSession} from "../store/actions";
+import {User_Cred_Store_By_Email} from '../store'
+import {ROUTE_DASHBOARD} from "../routes/RoutesConstants";
 const LoginContent = (props) => {
-  const history = useHistory();
+
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const {UserCredStore,setUserInfo} = useContext(AuthContext);
-  const [errorMap,setErrorMap] = useState({email:'',password:''})
-
+  const [errorMap,setErrorMap] = useState({email:'',password:''});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = ()=>{
 
       if(!email){
@@ -18,15 +21,15 @@ const LoginContent = (props) => {
         setErrorMap({...errorMap,password:'Password is null'})
       }
 
-      if(!UserCredStore[email]){
+      if(!User_Cred_Store_By_Email[email]){
         setErrorMap({...errorMap,email:'Invalid Email'})
       }
-      if(UserCredStore[email].password !== password){
+      if(User_Cred_Store_By_Email[email].password !== password){
         setErrorMap({...errorMap,password:'Invalid Password'})
       }
-      setUserInfo(UserCredStore[email]);
-      history.push('/dashboard')
-
+      props.session();
+      props.login({...User_Cred_Store_By_Email[email],group:'global'});
+      navigate("/dashboard", { replace: true });
   }
 
   return (
@@ -70,4 +73,11 @@ const LoginContent = (props) => {
   );
 };
 
-export default LoginContent;
+export default connect((state,ownProps)=>{
+    return {...ownProps}
+},(dispatch)=>{
+    return {
+        login:(userInfo)=>{dispatch(initLogin(userInfo))},
+        session:()=>dispatch(initSession())
+    }
+})(LoginContent);

@@ -1,34 +1,19 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, {useEffect,useState} from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Login from "../pages/Login";
-import Dashboard from "../pages/Dashboard"
+//import Dashboard from "../pages/Dashboard"
 import Signup from "../pages/Signup";
 import { useLocation } from "react-router";
+import {ROUTE_DASHBOARD, ROUTE_SIGNUP,ROUTE_LOGIN} from "./RoutesConstants";
+import Dashboard from "../pages/Dashboard";
 
-const AppRoutes = (props) => {
-
-  const {pathname} = useLocation();
-  console.log(location);
-  let  Comp = <Login />; 
-
-  switch (pathname) {
-    case '/dashboard':{
-      Comp = <Dashboard />
-      break;
-    }
-    case '/signup':{
-      Comp = <Signup />
-      break;
-    }
-    case '/login':
-
-    default:
-      break;
-  }
-  return (
-    <React.Fragment>
-      {Comp}  
-    </React.Fragment>
-  );
-};
-export default AppRoutes;
+export default function AppRoutes() {
+    return (
+        <Routes>
+            <Route  extract path="/" element={<Login />} />
+            <Route  extract path="/login" element={<Login />} />
+            <Route  extract path="/dashboard" element={<Dashboard />} />
+            <Route  extract path="/logout" element={<Login />} />
+        </Routes>
+    );
+}

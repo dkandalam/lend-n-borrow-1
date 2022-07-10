@@ -1,11 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
+import {ROUTE_LOGIN, ROUTE_SIGNUP} from "../routes/RoutesConstants";
 
 const Header = (props) => {
 
   const {onlyBanner=false} = props;
   
-  const history = useHistory();
+  //const history = useHistory();
   
   return (
     <div className="mt-4 mx-2 flex place-content-between">
@@ -16,7 +17,7 @@ const Header = (props) => {
         <button
           className="mx-2 text-green-400 light"
           onClick={() => {
-            history.push("/login");
+            history.push(ROUTE_LOGIN);
           }}
         >
           Log in
@@ -24,7 +25,7 @@ const Header = (props) => {
         <button
           className="mx-2 rounded border px-2 py-1 bg-green-400 text-white light shadow shadow-inner"
           onClick={() => {
-            history.push("/signup");
+            //history.push(ROUTE_SIGNUP);
           }}
         >
           Sign up

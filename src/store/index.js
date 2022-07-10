@@ -1,8 +1,40 @@
+import {createStore} from "@reduxjs/toolkit";
+import {storeReducers} from "./reducers";
+export const store = createStore(storeReducers);
+
+/*
+    this is passed to the store from UI.
+*/
+export const SPLIT_TYPE = {
+    "EQUAL":"equal",
+    "OWE":"owe",
+    "OWES":"owes"
+}
+
 export const App_Store = {
-    events:[],
-    users:[],
-    user_network:{},
-    group:[]   
+    expense_id:12,
+    users:['deepak.kireeti','test','test001','test002','test003'],
+    groups:{
+        "global":{
+            id:0,
+            users:['deepak.kireeti','test','test001']
+        },
+        "goa trip":{
+            id:1,
+            users:['deepak.kireeti','test','test001']
+        }
+    },
+    expenses:[
+        {
+            id:10,date:new Date(),from:"deepak.kireeti@outlook.com",to:["test@gmail.com"],amount:120.71,slipt:'equal',group:'global',
+            desc:'dinner at iBliss with team'
+        },
+        {
+            id:11,date:new Date(),from:"deepak.kireeti@outlook.com",to:["test@gmail.com"],amount:200.71,slipt:'equal',group:'goa trip',
+            desc:'car rental from mumbai to goa',
+        }
+    ],
+    error:{}
 }
 
 /*
@@ -46,3 +78,5 @@ export const User_Cred_Store_By_Email = {
         password:'test_003'
     }
 }
+
+
